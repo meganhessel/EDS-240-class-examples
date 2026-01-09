@@ -1,0 +1,95 @@
+---
+title: "week1-lab"
+format: html
+author: Megan Hessel 
+date: Jan 8, 2026 
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+```
+
+
+```{r}
+stressor <- read_csv(here::here('week1', 'data', 'stressor.csv')) %>% 
+  clean_names()
+```
+
+Remove all special characters in the state and stressor column observations
+```{r}
+stressor$state <- str_replace_all(string = stressor$state, 
+                pattern = "[^a-zA-Z]", 
+                replacement = "") 
+
+stressor$stressor <- str_replace_all(string = stressor$stressor, 
+                pattern = "[^a-zA-Z]", 
+                replacement = "")
+
+```
+
+Check datatime
+```{r}
+class(stressor$year)
+```
+
+
+Pivoting 
+```{r}
+stressor_pivot <- pivot_longer(stressor, 
+             cols = 4:7, 
+             names_to = 'months',
+             values_to = 'values')
+
+```
+
+Respell diseases 
+```{r}
+stressor_pivot$stressor <- str_replace_all(string = stressor_pivot$stressor, 
+                pattern = "Disesases", 
+                replacement = "Diseases")
+```
+
+Create new column named quarter that contains the quarter number that the observation took place in
+
+```{r}
+stressor_pivot <- stressor_pivot %>% 
+  mutate(quarter =
+           case_when (months == 'january_march' ~ 1, 
+                      months == 'april_june' ~ 2, 
+                      months == 'july_september' ~ 3, 
+                      months == 'october_december' ~ 4, 
+  ))
+
+```
+
+Remove any rows where the state is “United States” or “Other States”
+```{r}
+stressor_pivot <- stressor_pivot %>% 
+  filter(!(state == "UnitedStates" | state == "OtherStates"))
+
+stressor_pivot <- stressor_pivot %>% 
+  filter(!state == c("UnitedStates", "OtherStates"))
+
+# checking work! 
+stressor_pivot %>% 
+  filter(state == c("UnitedStates", "OtherStates"))
+
+unique(stressor_pivot$state)
+```
+Filter to select a single stressor and single state that interests you!
+
+```{r}
+NorthDakota <- stressor_pivot %>% 
+  filter(state == 'NorthDakota', 
+         stressor == 'Diseases')
+
+```
+
+Group by year and quarter to calculate the average stress level
+```{r}
+
+NorthDakota %>% 
+  group_by()
+```
+
