@@ -1,0 +1,81 @@
+---
+title: "data_viz_athon"
+format: html
+---
+
+```{r}
+library(dplyr)
+library(tidyverse)
+library(ggplot2)
+library(ggridges)
+```
+
+
+```{r}
+palm_trees <- read_csv(here::here("week4", "data", "palmtrees.csv"))
+```
+
+```{r}
+ggplot(palm_trees) + 
+  background_image(img) +
+  geom_density_ridges(aes(x = max_stem_height_m, y = palm_subfamily))
+
+```
+
+```{r}
+
+image <- png::readPNG(here::here("week4", "palm_tree_image.png"))
+
+
+ggplot(palm_trees, aes(x = max_fruit_length_cm, y = max__blade__length_m)) +
+  geom_hex() +
+  scale_fill_viridis_c() +
+  guides(fill = guide_colorbar(title = "Count", 
+                                barwidth = 1, barheight = 15))
+
+
+ggplot(palm_trees, aes(x = max_fruit_width_cm, y = max__blade__length_m)) +
+  geom_hex() +
+  scale_fill_viridis_c() +
+  guides(fill = guide_colorbar(title = "Count", 
+                                barwidth = 1, barheight = 15))
+
+
+ggplot(palm_trees, aes(x = max_stem_height_m, y = max__blade__length_m)) +
+  background_image(img) +
+  geom_hex() +
+  scale_fill_viridis_c() +
+  guides(fill = guide_colorbar(title = "Count", 
+                                barwidth = 1, barheight = 15)) 
+```
+
+
+```{r}
+# Graph - Proportional Circle Bar Chart 
+palm_trees %>% 
+ ggplot(mapping = aes(x=as.factor(palm_subfamily), 
+                       y=max_stem_height_m, 
+                       fill = erect)) + 
+  geom_bar(stat="identity") + # Making it stacked
+  ylim(-100,120) + # Limits on y axis 
+  coord_polar(start = 0) + # making it a circle
+  theme_minimal() +
+  theme(
+    axis.text = element_blank(), # Rid of axis titles + text & grid line 
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    plot.title = element_text(size = 17, 
+                               face = "bold")
+    #plot.margin = unit(rep(-1,4), "cm")
+  ) +
+    labs(fill = "NRI Rankings", 
+       title = "National Risk Index (NRI) Rankings by State", 
+       subtitle = "California predominantly has high NRI rankings.", 
+       caption = "Data: FEMA National Risk Index (2025 Release)")
+
+img <- png::readPNG("week4/palm_tree_image.png")
+
+img <- jpeg::readJPEG(here::here("week4", "palm_tree_image.jpg"))
+                      
+```
+
