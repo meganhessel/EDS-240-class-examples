@@ -1,0 +1,205 @@
+---
+title: "Storytelling"
+description: "A fresh take on the classic gapminder animation."
+author: Megan Hessel
+date: "2025/01/29"
+image: images/featured.png
+execute: 
+  eval: true
+  echo: false
+  warning: false
+freeze: auto
+format:
+  closeread-html:
+    css: gapminder.css
+    cr-style:
+      narrative-background-color-sidebar: "#DB778F"
+      narrative-text-color-sidebar: "#40111C"
+      section-background-color: "#FFFFFF"
+      narrative-font-size: 14pt
+      narrative-font-family: Ubuntu
+    remove-header-space: true
+    debug-mode: false
+    embed-resources: true
+---
+
+```{r}
+#| label: load-data
+#| echo: false
+#| message: false
+#| warning: false
+#| output: false
+#| eval: true
+# packages
+library(ggplot2)
+library(dplyr)
+library(ggtext)
+library(glue)
+library(scales)
+
+# colours
+col_palette <- c("#A053A1", "#DB778F", "#E69F52", "#09A39A", "#5869C7")
+bg_col <- "white"
+highlight_col <- "#DB778F"
+text_col <- "#40111C"
+# fonts
+#font_add_google("Ubuntu")
+#showtext_auto()
+#showtext_opts(dpi = 300)
+#body_font <- "Ubuntu"
+```
+
+:::{.cr-section}
+
+:::{#cr-anim-plot .scale-to-fill}
+
+![](images/animation.gif)
+
+:::
+
+:::{#cr-main-plot .scale-to-fill}
+
+```{r}
+#| label: main-plot
+
+
+
+```
+
+:::
+
+:::{#cr-main-plot-label .scale-to-fill}
+
+```{r}
+#| label: main-plot-label
+
+
+
+```
+
+:::
+
+:::{focus-on="cr-anim-plot" .scale-to-fill}
+
+# Gapminder: how has the world changed?
+
+[Gapminder](https://www.gapminder.org/) is an independent educational non-proﬁt ﬁghting global misconceptions.
+
+<br><br>
+
+*Scrollytelling visualisation by [Nicola Rennie](https://nrennie.rbind.io/).*
+
+:::
+
+:::{#cr-gdp .scale-to-fill}
+
+```{r}
+#| label: gdp-plot
+
+```
+
+:::
+
+:::{focus-on="cr-gdp"}
+
+## GDP
+
+GDP (Gross Domestic Product) is the total monetary value of all finished goods and services produced within a country's borders over a specific period, typically used to measure economic performance. Higher GDP per capita often correlates with better healthcare, education, and living standards, which can lead to longer life expectancy.
+
+:::
+
+:::{#cr-pop .scale-to-fill}
+
+```{r}
+#| label: pop-plot
+
+
+```
+
+:::
+
+:::{focus-on="cr-pop"}
+
+## Population
+
+Population growth is the increase in the number of people in a given area over time, influenced by birth rates, death rates, and migration. Population growth affects GDP by influencing labour supply, consumer demand, and economic productivity.
+
+:::
+
+:::{#cr-lifeExp .scale-to-fill}
+
+```{r}
+#| label: lifeExp-plot
+
+
+```
+
+:::
+
+:::{focus-on="cr-lifeExp"}
+
+## Life expectancy
+
+Life expectancy is the average number of years a person is expected to live based on current mortality trends and healthcare conditions in a given population. On average, life expectancy is increasing across every continent, although both the levels of life expectancy and the rates of change can be very different.
+
+:::
+
+:::{focus-on="cr-main-plot" .scale-to-fill}
+
+## The world in 2007
+
+Generally, countries with higher GDP per capita tend to have higher life expectancy, as economic growth improves healthcare, nutrition, and living standards. Population growth can have mixed effects; in some cases, rapid growth strains resources and slows GDP per capita gains, while in others, a growing workforce can boost economic productivity.
+
+<br>
+*Note: lines indicate median life expectancy and GDP per capita, and size of circles represents population size.*
+
+:::
+
+
+:::{focus-on="cr-main-plot-label" pan-to="-50%,55%" scale-by="1.6"}
+## High GDP per capita, high life expectancy
+
+The majority of countries with high GDP per capita and high life expectancy are in Europe, the Americas, and Asia. High GDP per capita and high life expectancy often go together because wealthier countries can invest in advanced healthcare, education, infrastructure, and social services, leading to better living conditions and lower mortality rates.
+
+:::
+
+:::{focus-on="cr-main-plot-label" pan-to="32%,55%" scale-by="1.6"}
+## Low GDP per capita, high life expectancy
+
+There are few countries with low GDP per capita but high life expectancy. These are primarily countries in Asia which may be due to strong public healthcare systems, community-based health initiatives, and cultural factors that promote healthy lifestyles.
+
+:::
+
+:::{focus-on="cr-main-plot-label" pan-to="32%,-30%" scale-by="1.6"}
+## Low GDP per capita, low life expetancy
+
+The majority of countries with low GDP per capita and low life expectancy are in Africa, alongside several Asian countries. Low GDP per capita and low life expectancy often coincide due to limited access to healthcare, education, and basic services, leading to higher mortality rates and poorer living conditions.
+
+:::
+
+:::{focus-on="cr-main-plot-label" pan-to="-55%,-30%" scale-by="1.6"}
+## High GDP per capita, low life expectancy
+
+There are few countries with high GDP per capita, and low life expectancy. These are primarily countries in Africa, where high GDP may stem from natural resource exports (such as oil), but low life expectancy persists due to unequal wealth distribution.
+
+:::
+
+:::{focus-on="cr-anim-plot" .scale-to-fill}
+
+*"Remember: things can be bad, and getting better."* - Hans Rosling, Factfulness.
+
+<br>
+
+{{< fa globe >}} [nrennie.rbind.io](https://nrennie.rbind.io/)
+
+<br>
+
+{{< fa brands linkedin >}} [nicola-rennie](https://www.linkedin.com/in/nicola-rennie/)
+
+<br>
+
+{{< fa brands github >}} [nrennie](https://github.com/nrennie)
+
+:::
+
+:::
